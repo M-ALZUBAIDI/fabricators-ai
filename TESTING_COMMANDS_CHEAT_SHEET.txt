@@ -1,0 +1,232 @@
+"""
+TESTING COMMANDS CHEAT SHEET
+
+Copy & paste these commands to start testing
+"""
+
+# ============================================================================
+# ONE-TIME SETUP
+# ============================================================================
+
+# 1. Navigate to project
+cd /Users/mohammed_alz/Desktop/Fabricators_ai
+
+# 2. Install dependencies (takes 5-15 min, do only once)
+pip install -r requirements.txt
+
+# 3. Create environment file (do only once)
+cp .env.example .env
+
+# Done with setup! Now you can run tests.
+
+
+# ============================================================================
+# TESTING COMMANDS (Run these)
+# ============================================================================
+
+# START TESTING (Main command you'll use)
+python development/dev_testing.py
+
+# This shows a menu:
+# 1. Test different models
+# 2. Test different prompts
+# 3. Test complete system
+# 4. Test with Mock LLM (fastest)
+
+
+# ============================================================================
+# VIEW YOUR RESULTS
+# ============================================================================
+
+# See model comparison results
+cat metrics/model_comparison.json
+
+# See prompt comparison results
+cat metrics/prompt_comparison.json
+
+# See CSV export (open in Excel)
+open metrics/results_*.csv
+
+# See all metrics files
+ls -la metrics/
+
+
+# ============================================================================
+# QUICK TESTS
+# ============================================================================
+
+# Fast verification (mock test, ~10 seconds)
+python development/dev_testing.py
+# Choose: 4
+
+# Test one model (real LLM, ~1-2 minutes first time, 30s after)
+python development/dev_testing.py
+# Choose: 1
+
+# Test prompts (real LLM, ~1-2 minutes per prompt)
+python development/dev_testing.py
+# Choose: 2
+
+# Full system test (real LLM, ~2-5 minutes)
+python development/dev_testing.py
+# Choose: 3
+
+
+# ============================================================================
+# DEVELOPMENT SERVER (to test API manually)
+# ============================================================================
+
+# Start dev server (uses mock LLM)
+ENVIRONMENT=development python -m uvicorn app:app --reload
+
+# In another terminal, test the API:
+curl http://localhost:8000/api/health
+
+# Send a chat message:
+curl -X POST http://localhost:8000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"question": "How do I make a cube?"}'
+
+# Stop server: Ctrl+C
+
+
+# ============================================================================
+# RUNNING TESTS
+# ============================================================================
+
+# Run all unit tests
+pytest tests/ -v
+
+# Run specific test
+pytest tests/test_chat_service.py -v
+
+# Run with coverage
+pytest tests/ --cov=. --cov-report=html
+
+
+# ============================================================================
+# MONITORING & LOGS
+# ============================================================================
+
+# If running production server, watch logs:
+tail -f logs/app.log
+
+# Clear old logs:
+rm logs/app.log
+
+
+# ============================================================================
+# CLEANING UP
+# ============================================================================
+
+# Remove old test results to start fresh
+rm -rf metrics/*.json
+rm -rf metrics/*.csv
+
+# Remove old prompts
+rm -rf prompts/*.json
+
+# Remove all logs
+rm -rf logs/
+
+
+# ============================================================================
+# HELPFUL CHECKS
+# ============================================================================
+
+# Verify Python version
+python --version
+
+# Check PyTorch installed
+python -c "import torch; print(torch.__version__)"
+
+# Check Unsloth installed
+python -c "import unsloth; print('Unsloth works!')"
+
+# Check GPU availability
+python -c "import torch; print('GPU available:', torch.cuda.is_available())"
+
+# See current directory
+pwd
+
+# List project files
+ls -la
+
+# List development files
+ls -la development/
+
+# List metrics
+ls -la metrics/
+
+
+# ============================================================================
+# WORKFLOW
+# ============================================================================
+
+# Day 1: Setup
+pip install -r requirements.txt
+cp .env.example .env
+
+# Day 2: First test (mock)
+python development/dev_testing.py
+# Choose: 4
+
+# Day 3: Test models
+python development/dev_testing.py
+# Choose: 1
+# Rate each model
+
+# Day 4: Test prompts
+python development/dev_testing.py
+# Choose: 2
+# Rate each prompt
+
+# Day 5: End-to-end test
+python development/dev_testing.py
+# Choose: 3
+
+# Review results
+cat metrics/model_comparison.json
+cat metrics/prompt_comparison.json
+
+# Now ready for production setup!
+
+
+# ============================================================================
+# TROUBLESHOOTING
+# ============================================================================
+
+# If pip install fails
+pip install --upgrade pip
+pip install -r requirements.txt --no-cache-dir
+
+# If models won't download
+# Check internet connection
+# Try smaller model (7B instead of 13B)
+
+# If GPU not detected
+# Check NVIDIA drivers: nvidia-smi
+# Try running on CPU first (slow but works)
+
+# If response is slow
+# Reduce MAX_TOKENS in .env
+# Use 7B model instead of 13B
+# Close other applications
+
+# If can't find metrics folder
+# Create it: mkdir metrics/
+# Or run a test first (creates it automatically)
+
+
+# ============================================================================
+# REMEMBER
+# ============================================================================
+
+# Most important command:
+python development/dev_testing.py
+
+# Always start with Mock test (option 4) for quick verification
+# Models download on first run (~10-30 min, only once)
+# Subsequent runs use cached models (fast)
+# Results automatically saved to metrics/
+# When done, share metrics with me to set up production

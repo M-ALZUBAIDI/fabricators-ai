@@ -1,0 +1,5 @@
+2026-04-25 10:28:07,003 - utils.logger - INFO - setup_logging:50 - Logging setup complete - Environment: development
+2026-04-25 10:28:07,072 - asyncio - DEBUG - __init__:59 - Using selector: KqueueSelector
+2026-04-25 10:28:07,073 - api.middleware - INFO - logging_middleware:15 - Request: GET /api/health
+2026-04-25 10:28:07,073 - api.middleware - ERROR - logging_middleware:20 - Error handling request: 'NoneType' object has no attribute 'ENVIRONMENT'
+2026-04-25 10:28:07,074 - httpx - INFO - _send_single_request:1013 - HTTP Request: GET http://testserver/api/health "HTTP/1.1 500 Internal Server Error"
