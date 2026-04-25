@@ -3,8 +3,7 @@ import logging
 import json
 from typing import Optional
 
-from models import DesignSpecification
-from models.llm_provider import LLMProvider
+from models import DesignSpecification, UnslothProvider
 from instructions import get_design_analyzer_prompt
 
 logger = logging.getLogger(__name__)
@@ -13,7 +12,7 @@ logger = logging.getLogger(__name__)
 class DesignAnalyzerService:
     """Service for analyzing conversations and extracting design specifications."""
 
-    def __init__(self, llm_provider: LLMProvider):
+    def __init__(self, llm_provider: UnslothProvider):
         self.llm_provider = llm_provider
 
     async def analyze_conversation(

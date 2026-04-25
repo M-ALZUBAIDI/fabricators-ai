@@ -4,8 +4,7 @@ import json
 import base64
 from datetime import datetime
 
-from models import ReportData, DesignSpecification, Design3DAsset
-from models.llm_provider import LLMProvider
+from models import ReportData, DesignSpecification, Design3DAsset, UnslothProvider
 from instructions import get_report_generator_prompt
 from services.design_analyzer import DesignAnalyzerService
 from services.chat_service import ChatService
@@ -18,7 +17,7 @@ class ReportService:
 
     def __init__(
         self,
-        llm_provider: LLMProvider,
+        llm_provider: UnslothProvider,
         chat_service: ChatService,
         design_analyzer: DesignAnalyzerService,
     ):

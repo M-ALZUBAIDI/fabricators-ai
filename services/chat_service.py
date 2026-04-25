@@ -4,8 +4,7 @@ from typing import List, Optional
 from datetime import datetime
 import uuid
 
-from models import ChatMessage, ConversationHistory, ChatResponse
-from models.llm_provider import LLMProvider
+from models import ChatMessage, ConversationHistory, ChatResponse, UnslothProvider
 from instructions import get_fabrication_assistant_prompt
 
 logger = logging.getLogger(__name__)
@@ -14,7 +13,7 @@ logger = logging.getLogger(__name__)
 class ChatService:
     """Service for managing chat conversations."""
 
-    def __init__(self, llm_provider: LLMProvider):
+    def __init__(self, llm_provider: UnslothProvider):
         self.llm_provider = llm_provider
         # In-memory storage (in production, use database)
         self.conversations: dict[str, ConversationHistory] = {}

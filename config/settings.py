@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     # App
     APP_NAME: str = "Fabricators AI"
     APP_VERSION: str = "0.1.0"
-    ENVIRONMENT: Literal["development", "production", "testing"] = "development"
+    ENVIRONMENT: Literal["development", "production"] = "production"
     DEBUG: bool = False
 
     # Server
@@ -19,15 +19,15 @@ class Settings(BaseSettings):
     # Database
     DATABASE_URL: str = "sqlite:///./fabricators.db"
 
-    # LLM Provider
-    LLM_PROVIDER: str = "unsloth"  # unsloth, mock (for testing)
+    # LLM Provider (Unsloth only)
+    LLM_PROVIDER: str = "unsloth"
     MODEL_NAME: str = "meta-llama/Llama-2-7b-hf"
     MAX_TOKENS: int = 1024
     TEMPERATURE: float = 0.7
 
     # 3D Generation
     GENERATION_3D_ENABLED: bool = True
-    PRIMARY_3D_FORMAT: str = "gltf"  # gltf, stl
+    PRIMARY_3D_FORMAT: str = "gltf"
     SECONDARY_3D_FORMAT: str = "stl"
 
     # Report Generation
